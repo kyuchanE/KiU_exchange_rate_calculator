@@ -83,3 +83,12 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+# Android Profiling
+*.hprof
+
+# Mac OS X clutter
+*.DS_Store
+
+# Windows clutter
+Thumbs.db
