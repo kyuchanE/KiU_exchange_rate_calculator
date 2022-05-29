@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">KiU_exchange_rate</string>
+
+    <string name="str_title">환율 계산</string>
+    <string name="str_remit_usd">송금국가 : 미국(USD)</string>
+    <string name="str_receive_country">수취국가 :</string>
+    
+    <string name="country_krw">한국(KRW)</string>
+    <string name="str_krw">KRW</string>
+    <string name="country_jpy">일본(JPY)</string>
+    <string name="str_jpy">JPY</string>
+    <string name="country_php">필리핀(PHP)</string>
+    <string name="str_php">PHP</string>
 </resources>
