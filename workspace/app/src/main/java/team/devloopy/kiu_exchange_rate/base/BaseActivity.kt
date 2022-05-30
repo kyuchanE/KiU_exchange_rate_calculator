@@ -1,5 +1,6 @@
 package team.devloopy.kiu_exchange_rate.base
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -46,6 +47,9 @@ abstract class BaseActivity<B: ViewDataBinding> : AppCompatActivity() {
 
     // 기본 에러 핸들러 on/off
     var useHandleError = true
+
+    // dialogList
+    private val dialogList = mutableListOf<Dialog>()
 
     // loading
     private lateinit var loadingBinding: LoadingBinding
@@ -116,6 +120,36 @@ abstract class BaseActivity<B: ViewDataBinding> : AppCompatActivity() {
             runOnUiThread {
                 loadingBinding.root.gone()
             }
+        }
+    }
+
+    /**
+     * 다이얼로그 띄우기
+     *
+     * @param dialog
+     */
+    @Synchronized
+    fun showDialog(dialog: Dialog) {
+        if (!isFinishing) {
+            dialogList.forEach {
+                if (it.isShowing) it.dismiss()
+                dialogList.remove(it)
+            }
+            dialogList.add(dialog)
+            dialog.show()
+        }
+    }
+
+    /**
+     * 다이얼로그 숨김
+     *
+     * @param dialog
+     */
+    @Synchronized
+    fun hideDialog(dialog: Dialog) {
+        if (!isFinishing) {
+            dialog.dismiss()
+            dialogList.remove(dialog)
         }
     }
 
