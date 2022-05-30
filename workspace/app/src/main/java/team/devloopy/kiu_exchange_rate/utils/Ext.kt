@@ -10,6 +10,8 @@ import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import team.devloopy.kiu_exchange_rate.base.BaseActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 ////////////////////////////// DataBinding //////////////////////////////
 val Context.layoutInflater: LayoutInflater get() = LayoutInflater.from(this)
@@ -115,4 +117,18 @@ fun View.hide(): View {
 fun View.gone(): View {
     visibility = View.GONE
     return this
+}
+
+////////////////////////////// Long //////////////////////////////
+
+fun Long.changeDate(form: String): String {
+    return try {
+        val dateFormat = SimpleDateFormat(form)
+        val cal = Calendar.getInstance()
+        cal.timeInMillis = this*1000L
+        dateFormat.format(cal.time)
+    } catch (e: Exception) {
+        L.d("changeDate Exception : ${e.message}")
+        ""
+    }
 }
