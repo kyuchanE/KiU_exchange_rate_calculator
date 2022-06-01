@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import team.devloopy.kiu_exchange_rate.base.BaseActivity
 import java.text.SimpleDateFormat
 import java.util.*
@@ -131,4 +133,89 @@ fun Long.changeDate(form: String): String {
         L.d("changeDate Exception : ${e.message}")
         ""
     }
+}
+
+////////////////////////////// Double //////////////////////////////
+
+val Double.count get() = String.format(Locale.KOREA, "%,.2f", this)
+
+////////////////////////////// JsonObject //////////////////////////////
+fun JsonObject?.asString(key: String, default: String = ""): String = try {
+    this?.get(key)?.asString ?: default
+} catch (e: Exception) {
+    "fun JsonObject?.asString 예외".log()
+    default
+}
+
+fun JsonObject?.asInt(key: String, default: Int = 0): Int = try {
+    this?.get(key)?.asInt ?: default
+} catch (e: Exception) {
+    "fun JsonObject?.asInt 예외".log()
+    default
+}
+
+fun JsonObject?.asFloat(key: String, default: Float = 0F): Float = try {
+    this?.get(key)?.asFloat ?: default
+} catch (e: Exception) {
+    "fun JsonObject?.asFloat 예외".log()
+    default
+}
+
+fun JsonObject?.asDouble(key: String, default: Double = 0.0): Double = try {
+    this?.get(key)?.asDouble ?: default
+} catch (e: Exception) {
+    "fun JsonObject?.asDouble 예외".log()
+    default
+}
+
+fun JsonObject?.asLong(key: String, default: Long = 0L): Long = try {
+    this?.get(key)?.asLong ?: default
+} catch (e: Exception) {
+    "fun JsonObject?.asLong 예외".log()
+    default
+}
+
+fun JsonObject?.asBoolean(key: String, default: Boolean = false): Boolean = try {
+    this?.get(key)?.asBoolean ?: default
+} catch (e: Exception) {
+    "fun JsonObject?.asBoolean 예외".log()
+    default
+}
+
+fun JsonObject?.asJsonObject(key: String, default: JsonObject = JsonObject()): JsonObject = try {
+    this?.get(key)?.asJsonObject ?: default
+} catch (e: Exception) {
+    "fun JsonObject?.asJsonObject 예외".log()
+    default
+}
+
+fun JsonObject?.asJsonArray(key: String, default: JsonArray = JsonArray()): JsonArray = try {
+    this?.get(key)?.asJsonArray ?: default
+} catch (e: Exception) {
+    "fun JsonObject?.asJsonArray 예외".log()
+    default
+}
+
+val JsonArray.asList: MutableList<JsonObject> get() = map { it.asJsonObject }.toMutableList()
+
+////////////////////////////// Any //////////////////////////////
+
+fun Any?.log(prefix: String = ""): Any? {
+    when (this) {
+        is Boolean, is Int, is Long, is Float, is Double -> L.d(prefix + toString())
+        is Throwable -> L.e(this)
+        is String -> L.d(prefix + this)
+        else -> L.d(prefix + this)
+    }
+    return this
+}
+
+fun Any?.toast(handler: BaseActivity<*>) {
+    val str: String = when (this) {
+        is Boolean, is Int, is Long, is Float, is Double -> this.toString()
+        is Throwable -> this.toString()
+        is String -> this
+        else -> this.toString()
+    }
+    Toast.makeText(handler, str, Toast.LENGTH_SHORT).show()
 }

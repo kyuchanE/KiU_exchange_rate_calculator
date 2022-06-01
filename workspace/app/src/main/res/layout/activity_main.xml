@@ -21,240 +21,256 @@
             type="String" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="35dp"
         android:background="@color/white"
         tools:context=".ui.MainActivity">
-        <!-- Start Title -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/str_title"
-            android:textColor="@color/black"
-            android:textSize="35dp"/>
-        <!-- End Title -->
-        <!-- Start Contents -->
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            android:layout_marginTop="15dp"
-            android:layout_marginHorizontal="20dp">
+            android:paddingTop="35dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
+            <!-- Start Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_title"
+                android:textColor="@color/black"
+                android:textSize="35dp"/>
+            <!-- End Title -->
+            <!-- Start Contents -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="65dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_remit_country"
-                    android:textColor="@color/color_39393e"
-                    android:gravity="end"
-                    android:textSize="15dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/country_usd"
-                    android:textColor="@color/color_39393e"
-                    android:layout_marginStart="10dp"
-                    android:textSize="15dp"/>
-
-            </LinearLayout>
-
-            <!-- Start Select Country -->
-            <LinearLayout
-                android:id="@+id/ll_select_country"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingEnd="30dp"
-                android:layout_marginTop="10dp"
-                android:tag="click">
-
-                <TextView
-                    android:layout_width="65dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="@string/str_receive_country"
-                    android:textColor="@color/color_39393e"
-                    android:textSize="15dp"/>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:background="@drawable/bg_select_box">
-
-                    <TextView
-                        android:id="@+id/tv_country"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="25dp"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:text="@{country}"
-                        tools:text="@string/country_krw"
-                        android:textColor="@color/color_39393e"
-                        android:textSize="15dp"/>
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="5dp"
-                        android:backgroundTint="@color/color_39393e"
-                        android:src="@drawable/arrow_down_gray"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
-            <!-- End Select Country -->
-
-            <!-- Start Exchange Rate -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="65dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_exchange_rate"
-                    android:textColor="@color/color_39393e"
-                    android:gravity="end"
-                    android:textSize="15dp"/>
-
-                <TextView
-                    android:id="@+id/tv_exchange_rate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@{exchange}"
-                    tools:text="1,130.05 KRW / USD"
-                    android:textColor="@color/color_39393e"
-                    android:textSize="15dp"/>
-
-            </LinearLayout>
-            <!-- End Exchange Rate -->
-
-            <!-- Start Search Time -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="65dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_search_time"
-                    android:textColor="@color/color_39393e"
-                    android:gravity="end"
-                    android:textSize="15dp"/>
-
-                <TextView
-                    android:id="@+id/tv_search_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@{search}"
-                    android:textColor="@color/color_39393e"
-                    tools:text="2022-05-30 19:13"
-                    android:textSize="15dp"/>
-
-            </LinearLayout>
-            <!-- End Search Time -->
-
-            <!-- Start Remittance -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="65dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_remittance"
-                    android:textColor="@color/color_39393e"
-                    android:gravity="end"
-                    android:textSize="15dp"/>
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginHorizontal="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="10dp">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="110dp"
+                    <TextView
+                        android:layout_width="65dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_select_box">
-
-                        <EditText
-                            android:id="@+id/et_remittance"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:gravity="end"
-                            android:layout_margin="1dp"
-                            android:background="@color/white"
-                            android:inputType="number"
-                            android:textColor="@color/color_39393e"
-                            tools:text="100"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:text="@string/str_remit_country"
+                        android:textColor="@color/color_39393e"
+                        android:gravity="end"
+                        android:textSize="15dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_usd"
+                        android:text="@string/country_usd"
                         android:textColor="@color/color_39393e"
-                        android:textSize="15dp"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="10dp"
+                        android:textSize="15dp"/>
 
                 </LinearLayout>
-            </LinearLayout>
-            <!-- End Remittance -->
 
-            <!-- Start Result -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{result}"
-                android:gravity="center_horizontal"
-                tools:text="수취금액은 113,004.98 KRW 입니다."
-                android:textSize="20dp"
-                android:textColor="@color/color_39393e"
-                android:layout_marginTop="55dp"/>
-            <!-- End Result -->
+                <!-- Start Select Country -->
+                <LinearLayout
+                    android:id="@+id/ll_select_country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="30dp"
+                    android:tag="click">
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/str_receive_country"
+                        android:textColor="@color/color_39393e"
+                        android:textSize="15dp"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="110dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_select_box">
+
+                        <TextView
+                            android:id="@+id/tv_country"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginEnd="25dp"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:text="@{country}"
+                            tools:text="@string/country_krw"
+                            android:textColor="@color/color_39393e"
+                            android:textSize="15dp"/>
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginEnd="5dp"
+                            android:backgroundTint="@color/color_39393e"
+                            android:src="@drawable/arrow_down_gray"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+                <!-- End Select Country -->
+
+                <!-- Start Exchange Rate -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_exchange_rate"
+                        android:textColor="@color/color_39393e"
+                        android:gravity="end"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_exchange_rate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@{exchange}"
+                        tools:text="1,130.05 KRW / USD"
+                        android:textColor="@color/color_39393e"
+                        android:textSize="15dp"/>
+
+                </LinearLayout>
+                <!-- End Exchange Rate -->
+
+                <!-- Start Search Time -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_search_time"
+                        android:textColor="@color/color_39393e"
+                        android:gravity="end"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_search_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@{search}"
+                        android:textColor="@color/color_39393e"
+                        tools:text="2022-05-30 19:13"
+                        android:textSize="15dp"/>
+
+                </LinearLayout>
+                <!-- End Search Time -->
+
+                <!-- Start Remittance -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_remittance"
+                        android:textColor="@color/color_39393e"
+                        android:gravity="end"
+                        android:textSize="15dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_select_box">
+
+                            <EditText
+                                android:id="@+id/et_remittance"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:gravity="end"
+                                android:layout_margin="1dp"
+                                android:padding="5dp"
+                                android:background="@color/white"
+                                android:inputType="number"
+                                android:textColor="@color/color_39393e"
+                                tools:text="100"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_usd"
+                            android:textColor="@color/color_39393e"
+                            android:textSize="15dp"
+                            android:layout_marginStart="5dp"/>
+
+                        <Button
+                            android:id="@+id/btn_calculate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:text="@string/str_calculate"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+                <!-- End Remittance -->
+
+                <!-- Start Result -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{result}"
+                    android:gravity="center_horizontal"
+                    tools:text="수취금액은 113,004.98 KRW 입니다."
+                    android:textSize="20dp"
+                    android:textColor="@color/color_39393e"
+                    android:layout_marginTop="55dp"/>
+                <!-- End Result -->
+
+            </LinearLayout>
+            <!-- End Contents -->
 
         </LinearLayout>
-        <!-- End Contents -->
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

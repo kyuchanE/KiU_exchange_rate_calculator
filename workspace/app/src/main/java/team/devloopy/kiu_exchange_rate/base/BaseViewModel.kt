@@ -7,6 +7,7 @@ import io.reactivex.disposables.Disposable
 open class BaseViewModel: ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
+    private var handler: BaseActivity<*>? = null
 
     fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
@@ -16,4 +17,10 @@ open class BaseViewModel: ViewModel() {
         compositeDisposable.clear()
         super.onCleared()
     }
+
+    fun setHandler(handler: BaseActivity<*>){
+        this.handler = handler
+    }
+
+    fun getHandler(): BaseActivity<*>? = handler
 }

@@ -13,6 +13,7 @@ class ModalPickerDialog(activity: BaseActivity<*>) :
     BaseDialog<DialogModalPickerBinding>(activity, true) {
 
     override val layoutId: Int = R.layout.dialog_modal_picker
+    private var resultPosition: Int = 0
 
     init {
         // 생성/제거 애니메이션 추가
@@ -37,9 +38,11 @@ class ModalPickerDialog(activity: BaseActivity<*>) :
         return this
     }
 
+    fun getResultPosition(): Int = resultPosition
+
     private fun clickBottomBtn(){
         binding.btnSaveSelect.setOnClickListener {
-
+            resultPosition = binding.npPicker.value
             activity.onBtnEvents(it)
             hideDialog()
         }

@@ -7,6 +7,7 @@
     <string name="str_exchange_rate">환율 :</string>
     <string name="str_search_time">조회시간 :</string>
     <string name="str_remittance">송금액 :</string>
+    <string name="str_calculate">계산하기</string>
 
     <string name="country_usd">미국(USD)</string>
     <string name="country_krw">한국(KRW)</string>
@@ -16,7 +17,7 @@
     <string name="country_php">필리핀(PHP)</string>
     <string name="str_php">PHP</string>
 
-    <string name="str_result">수취금액은 %s KRW 입니다.</string>
+    <string name="str_result">수취금액은 %s 입니다.</string>
 
     <string name="str_usd">USD</string>
 </resources>

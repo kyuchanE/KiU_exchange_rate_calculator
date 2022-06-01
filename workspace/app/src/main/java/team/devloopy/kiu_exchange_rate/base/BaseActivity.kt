@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
+import com.google.gson.JsonObject
 import com.trello.rxlifecycle2.android.ActivityEvent
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,9 +15,14 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
+import retrofit2.HttpException
 import team.devloopy.kiu_exchange_rate.R
 import team.devloopy.kiu_exchange_rate.databinding.LoadingBinding
+import team.devloopy.kiu_exchange_rate.listener.RequestSubscriber
 import team.devloopy.kiu_exchange_rate.utils.*
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -184,6 +190,81 @@ abstract class BaseActivity<B: ViewDataBinding> : AppCompatActivity() {
         return this.observeOn(AndroidSchedulers.mainThread())
             .throttleFirst(THROTTLE_FIRST_DURATION, TimeUnit.MILLISECONDS)
             .doOnSubscribe(::addDisposable)
+    }
+
+    /**
+     * 공통 속성을 정의한 Subscriber
+     *
+     * @param useLoading 로딩 사용여부
+     * @return
+     */
+    fun <T> buildSubscriber(useLoading: Boolean = true) = object : RequestSubscriber<T>() {
+        override fun onStart() {
+            super.onStart()
+            if (useLoading) showLoading()
+        }
+
+        override fun onError(t: Throwable) {
+            if (!skipErrorHandle) handleError(t)
+            if (useLoading) hideLoading()
+        }
+
+        override fun onNext(t: T) {
+            if (!skipErrorHandle) {
+                if (t is JsonObject) {
+                    L.d("buildSubscriber t : $t")
+                    if (!t.asBoolean("success")){
+                        "통신 에러 발생".toast(this@BaseActivity)
+                    }
+                }
+            }
+        }
+
+        override fun onComplete() {
+            if (useLoading) hideLoading()
+        }
+    }
+
+
+    /**
+     * 예상되는 예외처리
+     *
+     * @param t
+     */
+    fun handleError(t: Throwable) {
+        if (useHandleError) {
+            when (t) {
+                is HttpException -> {
+                    // 에러코드별 핸들링
+                    when (t.code()) {
+                        401 -> {
+                            "유효하지 않은 인증 정보".toast(this)
+                        }
+                        400, 404, 503 -> {
+                            "서비스 불가능".toast(this)
+                        }
+                        500 -> {
+                            "서버 오류".toast(this)
+                        }
+                        else -> {
+                            "에러 발생".toast(this)
+                        }
+                    }
+
+                }
+                is ConnectException -> {
+                    L.e("ConnectException")
+                }
+                is UnknownHostException -> {
+                    L.e("UnknownHostException")
+                }
+                is SocketTimeoutException -> {
+                    L.e("SocketTimeoutException")
+                }
+                else -> {
+                }
+            }
+        }
     }
 
     /**
