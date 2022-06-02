@@ -85,11 +85,18 @@ dependencies {
     // logger
     implementation 'com.orhanobut:logger:2.2.0'
     // Koin Core features
-    implementation "io.insert-koin:koin-core:3.1.6"
+    implementation "io.insert-koin:koin-core:3.2.0"
     // Koin Test features
-    testImplementation "io.insert-koin:koin-test:3.1.6"
+    testImplementation "io.insert-koin:koin-test:3.2.0"
+    testImplementation "io.insert-koin:koin-test-junit4:3.2.0"
+    //Mockito
+    androidTestImplementation("org.mockito:mockito-android:2.24.5")
+    testImplementation 'org.mockito:mockito-inline:2.21.0'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation 'org.mockito:mockito-core:3.5.9'
+    testImplementation "com.google.truth:truth:1.0"
     // Koin main features for Android
-    implementation "io.insert-koin:koin-android:3.1.6"
+    implementation "io.insert-koin:koin-android:3.2.0"
     // No more koin-android-viewmodel, koin-android-scope, koin-android-fragment
 
     // splash
