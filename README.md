@@ -5,15 +5,11 @@
 
 ### 결과 화면
 
-<figure class="third">
+<img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_0.JPG" align="left">
 
-    <img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_0.JPG">
+<img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_1.JPG" align="center">
 
-    <img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_1.JPG">
-
-    <img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_2.JPG">
-
-</figure>
+<img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_2.JPG" align="right">
 
 
 <br/>
