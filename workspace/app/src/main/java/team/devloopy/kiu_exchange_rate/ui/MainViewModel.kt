@@ -3,15 +3,17 @@ package team.devloopy.kiu_exchange_rate.ui
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.handleCoroutineException
+import io.reactivex.subscribers.ResourceSubscriber
 import team.devloopy.kiu_exchange_rate.base.BaseViewModel
-import team.devloopy.kiu_exchange_rate.config.C
-import team.devloopy.kiu_exchange_rate.model.BasicApi
+import team.devloopy.kiu_exchange_rate.data.ExchangeRateRepository
 import team.devloopy.kiu_exchange_rate.utils.*
 
-class MainViewModel(private val api: BasicApi): BaseViewModel() {
+class MainViewModel(
+    private val exchangeRateRepository: ExchangeRateRepository
+) : BaseViewModel() {
 
     private var timeLiveData = MutableLiveData<Long>()
     private var krwLiveData = MutableLiveData<Double>()
@@ -26,46 +28,147 @@ class MainViewModel(private val api: BasicApi): BaseViewModel() {
     private var isLoading: Boolean = false
 
     @SuppressLint("CheckResult")
-    fun getExchangeRate() {
+    fun getExchangeRateRepoData(): String {
         isLoading = true
-        api.get(
-            url = C.ApiLayer.url,
-            params = mutableMapOf(
-                "access_key" to "USD"
-            ),
-            headers = mutableMapOf(
-                "apikey" to C.ApiLayer.key
-            )
-        )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                L.d("getExchangeRate Error : ${it.message}")
-            }
-            .doOnNext { json ->
-                L.d("getExchangeRate Next : $json")
-                json?.let {
-                    try {
-                        if (it.asBoolean("success")) {
-                            timeLiveData.postValue(it.asLong("timestamp"))
-                            with(it.asJsonObject("quotes")) {
-                                krwLiveData.postValue(this.asDouble("USDKRW"))
-                                jpyLiveData.postValue(this.asDouble("USDJPY"))
-                                phpLiveData.postValue(this.asDouble("USDPHP"))
+        var strTest = ""
+        getHandler()?.let {
+            addDisposable(
+                exchangeRateRepository.getExchangeRate()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError { t ->
+                        L.d("getExchangeRateRepoData Error : ${t.message}")
+                        strTest = "doOnError"
+                    }
+                    .doOnNext { json ->
+                        L.d("getExchangeRateRepoData Next : $json")
+                        json?.let { item ->
+                            try {
+                                if (item.asBoolean("success")) {
+                                    strTest = "doOnNext : SUCCESS"
+                                    timeLiveData.postValue(item.asLong("timestamp"))
+                                    with(item.asJsonObject("quotes")) {
+                                        krwLiveData.postValue(this.asDouble("USDKRW"))
+                                        jpyLiveData.postValue(this.asDouble("USDJPY"))
+                                        phpLiveData.postValue(this.asDouble("USDPHP"))
+                                    }
+                                } else {
+                                    strTest = "doOnNext : ERROR"
+                                }
+                            } catch (e: Exception) {
+                                L.d("getExchangeRate Next catch : ${e.message}")
+                                strTest = "doOnNext : Exception"
                             }
+
                         }
-                    } catch (e: Exception) {
-                        L.d("getExchangeRate Next catch : ${e.message}")
+                    }
+                    .doFinally {
+                        isLoading = false
+                    }
+                    .subscribeWith(it.buildSubscriber(isLoading))
+            )
+        }
+        return strTest
+    }
+
+
+    @SuppressLint("CheckResult")
+    fun getTestExchangeRateRepoData(): String {
+        isLoading = true
+        var strTest = ""
+        addDisposable(
+            exchangeRateRepository.getExchangeRate()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { t ->
+                    L.d("getExchangeRateRepoData Error : ${t.message}")
+                    strTest = "doOnError"
+                }
+                .doOnNext { json ->
+                    L.d("getExchangeRateRepoData Next : $json")
+                    json?.let { item ->
+                        try {
+                            if (item.asBoolean("success")) {
+                                strTest = "doOnNext : SUCCESS"
+                                timeLiveData.postValue(item.asLong("timestamp"))
+                                with(item.asJsonObject("quotes")) {
+                                    krwLiveData.postValue(this.asDouble("USDKRW"))
+                                    jpyLiveData.postValue(this.asDouble("USDJPY"))
+                                    phpLiveData.postValue(this.asDouble("USDPHP"))
+                                }
+                            } else {
+                                strTest = "doOnNext : ERROR"
+                            }
+                        } catch (e: Exception) {
+                            L.d("getExchangeRate Next catch : ${e.message}")
+                            strTest = "doOnNext : Exception"
+                        }
+
+                    }
+                }
+                .doFinally {
+                    isLoading = false
+                }
+                .subscribeWith(object: ResourceSubscriber<JsonObject?>(){
+                    override fun onNext(t: JsonObject?) {
+                        TODO("Not yet implemented")
                     }
 
-                }
-            }
-            .doFinally {
-                L.d("getExchangeRate Finally ")
-                isLoading = false
-            }
-            .subscribeWith(
-                getHandler()?.buildSubscriber(isLoading)
-            )
+                    override fun onError(t: Throwable?) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onComplete() {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+        )
+        return strTest
     }
+
+//    @SuppressLint("CheckResult")
+//    fun getExchangeRate() {
+//        isLoading = true
+//        api.get(
+//            url = C.ApiLayer.url,
+//            params = mutableMapOf(
+//                "access_key" to "USD"
+//            ),
+//            headers = mutableMapOf(
+//                "apikey" to C.ApiLayer.key
+//            )
+//        )
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnError {
+//                L.d("getExchangeRate Error : ${it.message}")
+//            }
+//            .doOnNext { json ->
+//                L.d("getExchangeRate Next : $json")
+//                json?.let {
+//                    try {
+//                        if (it.asBoolean("success")) {
+//                            timeLiveData.postValue(it.asLong("timestamp"))
+//                            with(it.asJsonObject("quotes")) {
+//                                krwLiveData.postValue(this.asDouble("USDKRW"))
+//                                jpyLiveData.postValue(this.asDouble("USDJPY"))
+//                                phpLiveData.postValue(this.asDouble("USDPHP"))
+//                            }
+//                        }
+//                    } catch (e: Exception) {
+//                        L.d("getExchangeRate Next catch : ${e.message}")
+//                    }
+//
+//                }
+//            }
+//            .doFinally {
+//                L.d("getExchangeRate Finally ")
+//                isLoading = false
+//            }
+//            .subscribeWith(
+//                getHandler()?.buildSubscriber(isLoading)
+//            )
+//    }
+
 }

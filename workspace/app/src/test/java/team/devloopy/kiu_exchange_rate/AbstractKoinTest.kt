@@ -8,6 +8,8 @@ import org.koin.test.KoinTestRule
 import org.koin.test.mock.MockProviderRule
 import org.mockito.Mockito
 import team.devloopy.kiu_exchange_rate.di.activityModule
+import team.devloopy.kiu_exchange_rate.di.apiModule
+import team.devloopy.kiu_exchange_rate.di.repositoryModule
 
 abstract class AbstractKoinTest: KoinTest {
     inline fun <reified T> mock(): T = Mockito.mock(T::class.java)
@@ -20,7 +22,9 @@ abstract class AbstractKoinTest: KoinTest {
         printLogger(Level.DEBUG)
         modules(
             listOf(
-                activityModule
+                activityModule,
+                apiModule,
+                repositoryModule
             )
         )
     }

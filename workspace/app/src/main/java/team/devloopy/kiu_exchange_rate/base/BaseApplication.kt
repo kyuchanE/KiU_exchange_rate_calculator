@@ -8,6 +8,7 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import team.devloopy.kiu_exchange_rate.di.activityModule
 import team.devloopy.kiu_exchange_rate.di.apiModule
+import team.devloopy.kiu_exchange_rate.di.repositoryModule
 import team.devloopy.kiu_exchange_rate.utils.Api
 
 class BaseApplication : Application() {
@@ -26,7 +27,8 @@ class BaseApplication : Application() {
             androidContext(this@BaseApplication)
             modules(
                 activityModule,
-                apiModule
+                apiModule,
+                repositoryModule
             )
         }
     }

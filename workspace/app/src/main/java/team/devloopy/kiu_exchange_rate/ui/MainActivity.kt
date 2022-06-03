@@ -53,7 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         // getData
-        mainViewModel.getExchangeRate()
+        mainViewModel.getExchangeRateRepoData()
     }
 
     // 화면 바깥에 클릭 시 키보드 숨김처리
@@ -138,14 +138,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     2 -> C.CountryList.Current.P
                     else -> C.CountryList.Current.K
                 }
-                mainViewModel.getExchangeRate()
+                mainViewModel.getExchangeRateRepoData()
             }
             R.id.btn_calculate -> {     // 계산하기
                 if (binding.etRemittance.text.toString().isEmpty()) {
                     "송금액을 입력하세요.".toast(this@MainActivity)
                     binding.etRemittance.setText("0")
                 } else {
-                    mainViewModel.getExchangeRate()
+                    mainViewModel.getExchangeRateRepoData()
                 }
             }
         }
