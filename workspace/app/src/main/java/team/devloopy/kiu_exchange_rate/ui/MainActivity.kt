@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import team.devloopy.kiu_exchange_rate.R
 import team.devloopy.kiu_exchange_rate.base.BaseActivity
 import team.devloopy.kiu_exchange_rate.config.C
@@ -24,7 +25,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val layoutId: Int = R.layout.activity_main
     lateinit var modalPickerDialog: ModalPickerDialog
 
-    private val mainViewModel: MainViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel { parametersOf(this) }
     private lateinit var currentCountry: C.CountryList.Current
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,8 +70,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun setDataObserve() {
         mainViewModel.timeData.observe(this) {
             L.d("setDataObserve time : $it")
-            val str = it.changeDate("yyyy-MM-dd hh:mm")
-            binding.search = str
+            binding.search = mainViewModel.getTimestamp(it)
         }
         mainViewModel.krwData.observe(this) {
             L.d("setDataObserve krw : $it ")

@@ -19,8 +19,7 @@ import team.devloopy.kiu_exchange_rate.data.ExchangeRateRepository
 import team.devloopy.kiu_exchange_rate.ui.MainViewModel
 
 class MainViewModelTest: AbstractKoinTest() {
-    lateinit var mainViewModel: MainViewModel
-    lateinit var repository: ExchangeRateRepository
+    private val mainViewModel: MainViewModel by inject()
 
     @Before
     fun setUp() {
@@ -41,14 +40,12 @@ class MainViewModelTest: AbstractKoinTest() {
                 add("quotes", quotesData)
             }
 
-            repository = declareMock {
-                given(this.getExchangeRate()).willReturn(
-                    Flowable
-                        .just(jsonData)
-                )
-            }
-
-            mainViewModel = MainViewModel(repository)
+//            repository = declareMock {
+//                given(this.getExchangeRate()).willReturn(
+//                    Flowable
+//                        .just(jsonData)
+//                )
+//            }
 
 //            `when`(repository.getExchangeRate()).thenReturn(
 //                Flowable
@@ -56,7 +53,7 @@ class MainViewModelTest: AbstractKoinTest() {
 //            )
 
 //            mainViewModel = MainViewModel(repository)
-            assertThat(mainViewModel.getTestExchangeRateRepoData()).isEqualTo("doOnNext : SUCCESS")
+//            assertThat(mainViewModel.getTestExchangeRateRepoData()).isEqualTo("doOnNext : SUCCESS")
 //            assertThat(mainViewModel.testGetTimeData(jsonData)).isEqualTo("2022-06-03 10:30")
 //            assertThat(mainViewModel.testGetKrwData(jsonData)).isEqualTo("1,243.06")
         }
