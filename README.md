@@ -5,7 +5,16 @@
 
 ### 결과 화면
 
-|<kbd><img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_0.JPG"></kbd>|<kbd><img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_1.JPG"></kbd>|<kbd><img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_2.JPG"></kbd>|
+<figure class="third">
+
+    <img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_0.JPG">
+
+    <img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_1.JPG">
+
+    <img src="https://github.com/kyuchanE/KiU_exchange_rate_calculator/blob/feature/unit_test/image/app_2.JPG">
+
+</figure>
+
 
 <br/>
 
