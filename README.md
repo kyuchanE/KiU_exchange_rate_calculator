@@ -1,4 +1,13 @@
 # 환율 계산 기능 앱
+
+---
+
+<br/>
+
+- apk 다운로드 : https://www.dropbox.com/s/zk90vf6faftc5mj/exchange_rate_KiU.apk?dl=1
+
+<br/>
+
 ---
 
 <br/>
