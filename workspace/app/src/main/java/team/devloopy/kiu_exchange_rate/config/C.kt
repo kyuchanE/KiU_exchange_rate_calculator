@@ -8,7 +8,7 @@ object C {
     object ApiLayer {
         val url: String = "live"
         val baseUrl: String = "https://api.apilayer.com/currency_data/"
-        val key: String = "DqTUq2KR011gmGxtxhAEZXiGaZMie1BF"
+        val key: String = "j39iaW64HuXoXD0ZEVc9la7V6MDtwpHS"
     }
 
     object CountryList {    // 수취 국가 리스트

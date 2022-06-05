@@ -94,29 +94,36 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             } else {
                 binding.etRemittance.text.toString().toInt()
             }
-            resultStr += (remittance * changeRate).count
 
-            binding.country =  C.CountryList.getLists(
-                this@MainActivity
-            )[modalPickerDialog.getResultPosition()]
+            if (remittance > 10000) {
+                "송금액이 바르지 않습니다.".toast(this)
+                binding.result = "송금액이 바르지 않습니다. \n(10,000 USD 보다 큰 금액)"
 
-            when(currentCountry) {
-                C.CountryList.Current.K -> {    // 한국
-                    binding.exchange = "${changeRate.count} KRW / USD"
-                    resultStr += " KRW"
+            } else {
+                resultStr += (remittance * changeRate).count
+
+                binding.country =  C.CountryList.getLists(
+                    this@MainActivity
+                )[modalPickerDialog.getResultPosition()]
+
+                when(currentCountry) {
+                    C.CountryList.Current.K -> {    // 한국
+                        binding.exchange = "${changeRate.count} KRW / USD"
+                        resultStr += " KRW"
+                    }
+                    C.CountryList.Current.J -> {    // 일본
+                        binding.exchange = "${changeRate.count} JPY / USD"
+                        resultStr += " JPY"
+                    }
+                    C.CountryList.Current.P -> {    // 필리핀
+                        binding.exchange = "${changeRate.count} PHP / USD"
+                        resultStr += " PHP"
+                    }
+                    else -> {}
                 }
-                C.CountryList.Current.J -> {    // 일본
-                    binding.exchange = "${changeRate.count} JPY / USD"
-                    resultStr += " JPY"
-                }
-                C.CountryList.Current.P -> {    // 필리핀
-                    binding.exchange = "${changeRate.count} PHP / USD"
-                    resultStr += " PHP"
-                }
-                else -> {}
+                binding.result = String.format(resources.getString(R.string.str_result), resultStr)
             }
 
-            binding.result = String.format(resources.getString(R.string.str_result), resultStr)
         }
 
     }
